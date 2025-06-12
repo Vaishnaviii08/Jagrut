@@ -45,9 +45,9 @@ export default function Home() {
   ]
 
   return (
-    <div className="flex flex-col min-h-screen">
-      {/* Hero Slider Section */}
-      <section className="relative w-full h-[80vh] bg-white">
+    <div className="flex flex-col">
+      {/* Hero Slider Section - Full Screen */}
+      <section className="relative w-full h-screen bg-white">
         <HeroSlider images={sliderImages} />
       </section>
 
