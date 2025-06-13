@@ -72,7 +72,7 @@ export default function SiteFooter() {
           <li className="flex items-start">
             <Mail className="h-5 w-5 mr-2 text-yellow-400 shrink-0 mt-0.5" />
               <span className="text-gray-300 break-words max-w-[220px] sm:max-w-[300px]">
-                jagrutautomationandroboticsprivatelimited@gmail.com
+                jagrutautomationandrobotics@gmail.com
               </span>
           </li>
         </ul>
@@ -96,7 +96,7 @@ export default function SiteFooter() {
 
     <div className="border-t border-gray-700 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
       <p className="text-gray-500 text-sm">
-        © {new Date().getFullYear()} Jagrut Automation and Robotics Pvt. Ltd. All rights reserved.
+        © {new Date().getFullYear()} Jagrut Automation and Robotics Private Limited All rights reserved.
       </p>
       <div className="flex gap-4 mt-4 md:mt-0">
         <Link href="/privacy" className="text-gray-400 hover:text-white text-sm">
