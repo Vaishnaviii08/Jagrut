@@ -41,7 +41,7 @@ export default function RegularCleaningNecessityPage() {
           <div className="md:col-span-8 md:col-start-3">
             <div className="relative w-full h-[300px] md:h-[400px] lg:h-[500px] rounded-lg overflow-hidden shadow-lg">
               <Image
-                src="/placeholder.svg?height=500&width=1200&text=Dirty+vs+Clean+Solar+Panels"
+                src="/Clean-and-dirty-solar-panels.png"
                 alt="Comparison showing dirty solar panels with reduced efficiency versus clean panels"
                 fill
                 className="object-cover"
@@ -130,7 +130,7 @@ export default function RegularCleaningNecessityPage() {
 
                 <div className="relative w-full h-[300px] my-8 rounded-lg overflow-hidden">
                   <Image
-                    src="/placeholder.svg?height=300&width=800&text=Efficiency+Drop+Comparison"
+                    src="/rows_of_uncleaned_panels.jpg"
                     alt="Side-by-side comparison of clean versus dirty solar panels showing efficiency difference"
                     fill
                     className="object-cover"

@@ -147,7 +147,7 @@ export default function Home() {
           >
             <div className="relative h-64">
               <Image
-              src="/linear_bot.jpg?height=400&width=600&text=Linear+Bot"
+              src="/linear_bot_2.jpg?"
               alt="Linear Bot preview"
               fill
               className="object-cover rounded-t-xl"
@@ -258,7 +258,7 @@ export default function Home() {
             <BlogCard
               title="Why Sprinkler Cleaning Can Harm Your Solar Panels"
               excerpt="Sprinkler cleaning is a common method for solar panel maintenance, but it comes with several hidden drawbacks that can affect performance and longevity."
-              imageSrc="/placeholder.svg?height=300&width=600&text=Water+Spots+vs+Clean+Panel"
+              imageSrc="/sprinkler_cleaning_3.jpg"
               imageAlt="Side-by-side image showing water spots vs clean panel"
               slug="/blog/sprinkler-cleaning-drawbacks"
             />
@@ -266,7 +266,7 @@ export default function Home() {
             <BlogCard
               title="Why Regular Cleaning of Solar Panels is Necessary and How Efficiency Drops Without It"
               excerpt="Solar panels are a significant investment, but their ability to convert sunlight into electricity depends heavily on keeping their surfaces clean."
-              imageSrc="/placeholder.svg?height=300&width=600&text=Water+Spots+vs+Clean+Panel"
+              imageSrc="Clean-and-dirty-solar-panels.png"
               imageAlt="Comparison showing dirty solar panels with reduced efficiency"
               slug="/blog/regular-cleaning-necessity"
             />

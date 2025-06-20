@@ -41,7 +41,7 @@ export default function SprinklerCleaningDrawbacksPage() {
           <div className="md:col-span-8 md:col-start-3">
             <div className="relative w-full h-[300px] md:h-[400px] lg:h-[500px] rounded-lg overflow-hidden shadow-lg">
               <Image
-                src="/placeholder.svg?height=500&width=1200&text=Water+Spots+vs+Clean+Panel"
+                src="/sprinkler_cleaning_1.jpg"
                 alt="Side-by-side image showing water spots and mineral residue on a solar panel after sprinkler use compared to a clean, streak-free panel"
                 fill
                 className="object-cover"
@@ -119,7 +119,7 @@ export default function SprinklerCleaningDrawbacksPage() {
 
                 <div className="relative w-full h-[300px] my-8 rounded-lg overflow-hidden">
                   <Image
-                    src="/placeholder.svg?height=300&width=800&text=Uneven+Cleaning+Results"
+                    src="/sprinkler_cleaning_4.jpg"
                     alt="Illustration showing uneven cleaning results from sprinkler systems"
                     fill
                     className="object-cover"
