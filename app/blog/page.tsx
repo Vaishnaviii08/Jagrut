@@ -19,6 +19,16 @@ export default function BlogPage() {
       date: "April 23, 2025",
     },
     {
+      title: "Why Regular Cleaning of Solar Panels is Necessary and How Efficiency Drops Without It",
+      excerpt:
+        "Solar panels are a significant investment, but their ability to convert sunlight into electricity depends heavily on keeping their surfaces clean. Learn why regular cleaning is essential.",
+      imageSrc: "/placeholder.svg?height=300&width=600&text=Water+Spots+vs+Clean+Panel",
+      imageAlt: "Comparison showing dirty solar panels with reduced efficiency",
+      slug: "/blog/regular-cleaning-necessity",
+      category: "Maintenance",
+      date: "April 25, 2025",
+    },
+    {
       title: "Why Nylon Brush Cleaning is the Superior Solution",
       excerpt:
         "At Jagrut Automation, we use high-quality nylon roller brushes in our Linear Bot for waterless solar panel cleaning. Here's why this method stands out.",
@@ -56,16 +66,6 @@ export default function BlogPage() {
       slug: "/blog/mumbai-rooftop-case-study",
       category: "Case Study",
       date: "April 15, 2025",
-    },
-    {
-      title: "How to Maximize Solar Panel Efficiency Through Proper Maintenance",
-      excerpt:
-        "Discover the best practices for maintaining your solar panels to ensure maximum efficiency and longevity.",
-      imageSrc: "/placeholder.svg?height=300&width=600&text=Maintenance+Best+Practices",
-      imageAlt: "Solar panel maintenance best practices",
-      slug: "/blog/maximize-efficiency-maintenance",
-      category: "Maintenance",
-      date: "April 10, 2025",
     },
   ]
 

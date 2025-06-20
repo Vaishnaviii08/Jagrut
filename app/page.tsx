@@ -89,7 +89,7 @@ export default function Home() {
                 </div>
                 <CardHeader className="bg-gradient-to-r from-blue-400 to-blue-500 text-white">
                   <CardTitle className="text-2xl">Linear Bot</CardTitle>
-                  <CardDescription className="text-blue-50">Extendable Waterless Cleaning System</CardDescription>
+                  <CardDescription className="text-blue-50">Rail-Based Solar Panel Cleaning Robot</CardDescription>
                 </CardHeader>
               </Card>
             </div>
@@ -120,7 +120,7 @@ export default function Home() {
                 <CardHeader className="bg-gradient-to-r from-blue-400 to-blue-500 text-white">
                   <CardTitle className="text-2xl">Wrover Bot</CardTitle>
                   <CardDescription className="text-blue-50">
-                    Modular Belt System for Complex Installations
+                    Modular belt-driven cleaning bot for complex solar installations
                   </CardDescription>
                 </CardHeader>
               </Card>
@@ -158,21 +158,25 @@ export default function Home() {
                 Linear Bot
               </CardTitle>
               <CardDescription id="linear-bot-description" className="text-slate-600 text-lg leading-relaxed font-medium tracking-wide">
-                Extendable waterless cleaning bot for long solar installations
+                Rail-Based Solar Panel Cleaning Robot
               </CardDescription>
             </CardHeader>
             <CardContent className="p-6 text-slate-700 text-base leading-relaxed space-y-4 tracking-wide">
               <p>
-                Linear Bot is optimized for autonomous cleaning of solar panel rows using
-                high-efficiency nylon brushes and minimal intervention. With a modular
-                extendable system, it reduces downtime and maximizes energy output.
+                Linear Bot is an automated, rail-guided robot designed for efficient cleaning of large solar farms and linear panel arrays. It offers precise, low-maintenance cleaning with minimal human effort for ground and shed-mounted installations.
               </p>
+              <ul className="list-disc list-inside space-y-2 ml-4">
+                <li>Fully automated operation with options for remote control and scheduling</li>
+                <li>Extendable and adjustable to suit different panel sizes and varying row configurations.</li>
+                <li>Smart obstacle detection and edge protection to prevent accidents.</li>
+                <li>Water-efficient cleaning system to minimize water usage</li>
+              </ul>
             </CardContent>
 
             <div className="flex-grow flex items-center justify-center p-6 pt-0">
               <a
                 href="/contact"
-                className="inline-block bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg text-lg font-medium"
+                className="inline-block bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium"
               >
                 Inquire for More Details
               </a>
@@ -215,17 +219,21 @@ export default function Home() {
             </CardHeader>
             <CardContent className="p-6 text-slate-700 text-base leading-relaxed space-y-4 tracking-wide">
               <p>
-                Linear Bot is optimized for autonomous cleaning of solar panel rows using
-                high-efficiency nylon brushes and minimal intervention. With a modular
-                extendable system, it reduces downtime and maximizes energy output.
+                An autonomous cleaning robot specially designed for shed-mounted solar panels, where panels are installed in an irregular and non-linear arrangement. Wrover Bot is capable of 360° movement on the panels, allowing it to navigate complex panel layouts without the need for fixed rails.
               </p>
+              <ul className="list-disc list-inside space-y-2 ml-4">
+                <li>360° movement across panel surfaces for maximum coverage.</li>
+                <li>Suitable for shed-mounted and irregularly installed solar panels.</li>
+                <li>Smart navigation with obstacle detection and edge protection.</li>
+                <li>Water-efficient technology to reduce resource consumption.</li>
+              </ul>
             </CardContent>
 
             {/* This container fills leftover space and centers the button */}
             <div className="flex-grow flex items-center justify-center p-6 pt-0">
               <a
                 href="/contact"
-                className="inline-block bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg text-lg font-medium"
+                className="inline-block bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium"
               >
                 Inquire for More Details
               </a>
@@ -256,11 +264,11 @@ export default function Home() {
             />
 
             <BlogCard
-              title="Why Nylon Brush Cleaning is the Superior Solution"
-              excerpt="At Jagrut Automation, we use high-quality nylon roller brushes in our Linear Bot for waterless solar panel cleaning. Here's why this method stands out."
-              imageSrc="/placeholder.svg?height=300&width=600&text=Nylon+Brush+Cleaning"
-              imageAlt="Close-up of nylon roller brush cleaning a panel"
-              slug="/blog/nylon-brush-cleaning-benefits"
+              title="Why Regular Cleaning of Solar Panels is Necessary and How Efficiency Drops Without It"
+              excerpt="Solar panels are a significant investment, but their ability to convert sunlight into electricity depends heavily on keeping their surfaces clean."
+              imageSrc="/placeholder.svg?height=300&width=600&text=Water+Spots+vs+Clean+Panel"
+              imageAlt="Comparison showing dirty solar panels with reduced efficiency"
+              slug="/blog/regular-cleaning-necessity"
             />
           </div>
 
