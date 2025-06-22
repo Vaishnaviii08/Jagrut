@@ -22,10 +22,9 @@ export default function ContactPage() {
   const [automationFormSubmitted, setAutomationFormSubmitted] = useState(false);
   const [showSolarEnquiryForm, setShowSolarEnquiryForm] = useState(false);
   const [showAutomationForm, setShowAutomationForm] = useState(false);
-  const [installationType, setInstallationType] = useState("");
   const [otherInstallation, setOtherInstallation] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [testMode] = useState(false); // Set to false for production
+  const [testMode] = useState(false); // Set to true for local testing
   
   // Form data state
   const [formData, setFormData] = useState({
@@ -34,6 +33,7 @@ export default function ContactPage() {
     company: "",
     bot: "",
     installationSize: "",
+    installationType: "",
     location: "",
     pincode: ""
   });
@@ -43,6 +43,26 @@ export default function ContactPage() {
       ...prev,
       [field]: value
     }));
+  };
+
+  // Updated handler for installation type radio buttons
+  const handleInstallationTypeChange = (value: string) => {
+    setFormData(prev => ({
+      ...prev,
+      installationType: value
+    }));
+    
+    // Clear the other installation text if switching away from "other"
+    if (value !== "other") {
+      setOtherInstallation("");
+    }
+  };
+
+  // Fixed handler for "other" installation type input
+  const handleOtherInstallationChange = (value: string) => {
+    setOtherInstallation(value);
+    // Don't update formData.installationType here - keep it as "other"
+    // The actual value will be used during form submission
   };
 
   const handleSolarEnquirySubmit = async (e: React.FormEvent) => {
@@ -57,14 +77,21 @@ export default function ContactPage() {
         return;
       }
 
+      // Determine the final installation type value
+      let finalInstallationType = formData.installationType;
+      if (formData.installationType === "other" && otherInstallation.trim()) {
+        finalInstallationType = otherInstallation.trim();
+      } else if (formData.installationType === "other") {
+        finalInstallationType = "Other (not specified)";
+      }
+
       const submitData = {
         name: formData.name,
-        phone: formData.phone,
+        phone: "'" + formData.phone, // Add single quote to treat as text in sheets
         company: formData.company,
         bot: formData.bot,
         installationSize: formData.installationSize,
-        installationType,
-        otherInstallation,
+        installationType: finalInstallationType,
         location: formData.location,
         pincode: formData.pincode,
         timestamp: new Date().toISOString()
@@ -103,11 +130,11 @@ export default function ContactPage() {
         company: "",
         bot: "",
         installationSize: "",
+        installationType: "",
         location: "",
         pincode: ""
       });
-      setInstallationType("");
-      setOtherInstallation("");
+      setOtherInstallation(""); // Reset other installation input
 
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -303,8 +330,8 @@ export default function ContactPage() {
                                     id="ground-mounted"
                                     name="installation-type"
                                     value="ground-mounted"
-                                    checked={installationType === "ground-mounted"}
-                                    onChange={(e) => setInstallationType(e.target.value)}
+                                    checked={formData.installationType === "ground-mounted"}
+                                    onChange={(e) => handleInstallationTypeChange(e.target.value)}
                                     className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
                                   />
                                   <Label
@@ -320,8 +347,8 @@ export default function ContactPage() {
                                     id="shed-mounted"
                                     name="installation-type"
                                     value="shed-mounted"
-                                    checked={installationType === "shed-mounted"}
-                                    onChange={(e) => setInstallationType(e.target.value)}
+                                    checked={formData.installationType === "shed-mounted"}
+                                    onChange={(e) => handleInstallationTypeChange(e.target.value)}
                                     className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
                                   />
                                   <Label
@@ -337,8 +364,8 @@ export default function ContactPage() {
                                     id="residential"
                                     name="installation-type"
                                     value="residential"
-                                    checked={installationType === "residential"}
-                                    onChange={(e) => setInstallationType(e.target.value)}
+                                    checked={formData.installationType === "residential"}
+                                    onChange={(e) => handleInstallationTypeChange(e.target.value)}
                                     className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
                                   />
                                   <Label
@@ -354,8 +381,8 @@ export default function ContactPage() {
                                     id="other"
                                     name="installation-type"
                                     value="other"
-                                    checked={installationType === "other"}
-                                    onChange={(e) => setInstallationType(e.target.value)}
+                                    checked={formData.installationType === "other"}
+                                    onChange={(e) => handleInstallationTypeChange(e.target.value)}
                                     className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
                                   />
                                   <Label
@@ -368,7 +395,7 @@ export default function ContactPage() {
                               </div>
                             </div>
 
-                            {installationType === "other" && (
+                            {formData.installationType === "other" && (
                               <div className="space-y-2">
                                 <Label htmlFor="other-installation">
                                   Please specify:
@@ -377,7 +404,7 @@ export default function ContactPage() {
                                   id="other-installation"
                                   placeholder="Specify installation type"
                                   value={otherInstallation}
-                                  onChange={(e) => setOtherInstallation(e.target.value)}
+                                  onChange={(e) => handleOtherInstallationChange(e.target.value)}
                                 />
                               </div>
                             )}
