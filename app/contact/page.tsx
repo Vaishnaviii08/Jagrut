@@ -25,7 +25,7 @@ export default function ContactPage() {
   const [installationType, setInstallationType] = useState("");
   const [otherInstallation, setOtherInstallation] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [testMode] = useState(true); // Set to false for production
+  const [testMode] = useState(false); // Set to false for production
   
   // Form data state
   const [formData, setFormData] = useState({
