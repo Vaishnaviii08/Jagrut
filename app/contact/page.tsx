@@ -457,7 +457,7 @@ export default function ContactPage() {
                   className="w-full justify-between text-left h-auto p-4 border-2 border-blue-200 hover:border-blue-400 hover:bg-blue-50 transition-all duration-200"
                 >
                   <span className="text-lg font-semibold text-blue-700">
-                    Automation on Demand
+                    Book a Demo
                   </span>
                   {showAutomationForm ? (
                     <ChevronUp className="h-5 w-5 text-blue-600" />
