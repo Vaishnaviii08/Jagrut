@@ -1,299 +1,517 @@
-"use client"
 
-import React, { useState, useEffect } from "react"
-import Link from "next/link"
-import Image from "next/image"
-import { ArrowRight } from "lucide-react"
+"use client";
 
-import { Button } from "@/components/ui/button"
-import { Card, CardDescription, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
-import BlogCard from "@/components/blog-card"
-import HeroSlider from "@/components/hero-slider"
+import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 
-export default function Home() {
-  const [expandedProduct, setExpandedProduct] = useState<string | null>(null);
+type ProductSpec = {
+  [key: string]: string;
+};
 
-  // Close modal on Escape key
+type ProductDetails = {
+  power: string;
+  cleaning: string;
+  operation: string;
+  maintenance: string;
+  bestSuited: string;
+};
+
+type Product = {
+  slug: string;
+  name: string;
+  subtitle: string;
+  image: string;
+  highlights: string[];
+  details: ProductDetails;
+  specs?: ProductSpec;
+  comingSoon?: boolean;
+};
+
+const products: Product[] = [
+  {
+    slug: "vyro",
+    name: "VYRO",
+    subtitle: "Battery-Powered Solar Cleaning Robot",
+    image: "/products/vyro.png",
+    highlights: [
+      "12V Swappable Battery",
+      "Spiral Rotary Brush",
+      "Remote Controlled",
+    ],
+    details: {
+      power: "12V battery with an easy Swappable Battery system.",
+      cleaning:
+        "Spiral rotary dry cleaning brush with soft nylon bristles for safe, scratch-free and waterless operation.",
+      operation:
+        "Manual row shifting, 2 workers required; lightweight, user-friendly and Remote Controlled.",
+      maintenance:
+        "Designed for regular dry cleaning with quick-change battery management and a 1 Year Product Warranty.",
+      bestSuited: "Shed and ground-mount installations.",
+    },
+    specs: {
+      "Robot Run Time": "Swappable Batteries",
+      "Cleaning Capacity": "1 MW/hr",
+      "Charging Time": "3 Hrs",
+      Weight: "37 kg",
+    },
+  },
+  {
+    slug: "vyro-plus",
+    name: "VYRO+",
+    subtitle: "Self-Solar-Charging Cleaning Robot",
+    image: "/products/vyro-plus.png",
+    highlights: [
+      "Built-in Solar Charging",
+      "No External Charging Required",
+      "Remote Controlled",
+    ],
+    details: {
+      power:
+        "Built-in Solar Charging technology via an integrated battery and robot-mounted solar panel; no external charging required.",
+      cleaning:
+        "Spiral rotary dry cleaning brush with soft nylon bristles for safe, scratch-free and waterless operation.",
+      operation:
+        "Manual row shifting between rows; lightweight, easily portable and Remote Controlled.",
+      maintenance:
+        "Highly energy-efficient, low-maintenance hardware design covered by a 1 Year Product Warranty.",
+      bestSuited:
+        "Mid-sized shed, residential and commercial ground-mount setups where external power lines aren't accessible.",
+    },
+    specs: {
+      "Robot Run Time": "1.25 Hrs",
+      "Cleaning Capacity": "1 MW/hr",
+      "Charging Time": "6 Hrs",
+      Weight: "42 kg",
+    },
+  },
+  {
+    slug: "auro",
+    name: "AURO",
+    subtitle: "Fully Autonomous Solar Cleaning Robot",
+    image: "/products/auro.png",
+    highlights: [
+      "Fully Autonomous",
+      "Automatic Time Scheduler",
+      "Real-time SCADA Monitoring",
+    ],
+    details: {
+      power:
+        "Built-in Solar Charging technology for continuous, independent power sourcing with zero plug-in needs.",
+      cleaning:
+        "Spiral rotary dry cleaning brush with soft nylon bristles for safe, scratch-free and waterless operation.",
+      operation:
+        "Fully automated operation with an automatic time scheduler, real-time SCADA monitoring, zero manual intervention or row shifting.",
+      maintenance:
+        "Permanently installed, one robot per row, for reliable daily cleaning, backed by a 1 Year Product Warranty.",
+      bestSuited:
+        "Large-scale industrial utility solar power plants requiring hands-free, continuous dust management.",
+    },
+    specs: {
+      "Robot Run Time": "1.25 Hrs",
+      "Cleaning Capacity": "1 MW/hr",
+      "Charging Time": "6 Hrs",
+      Weight: "42 kg",
+    },
+  },
+  {
+    slug: "rooflite",
+    name: "ROOFLITE",
+    subtitle: "Fully Automated Residential Solar Cleaning Robot",
+    image: "/products/rooflite.png",
+    comingSoon: true,
+    highlights: [
+      "Built-in Solar Charging",
+      "Mobile App Control",
+      "Scheduled Cleaning",
+    ],
+    details: {
+      power:
+        "Built-in Solar Charging with an integrated rechargeable battery.",
+      cleaning:
+        "Water-integrated cleaning system with a safe and gentle brush for scratch-free cleaning.",
+      operation:
+        "Fully automated via mobile app with scheduled cleaning and easy on-site setup.",
+      maintenance:
+        "Most budget-friendly, highly economical for residential rooftop and small businesses.",
+      bestSuited:
+        "Residential rooftop solar systems to maximize performance with minimal user intervention.",
+    },
+  },
+];
+
+const blogs = [
+  {
+    title: "Solar Panel Cleaning: Why It Matters",
+    description:
+      "Regular solar panel cleaning helps maintain efficient solar power generation.",
+    image: "/Clean-and-dirty-solar-panels.png",
+  },
+  {
+    title: "The Future of Solar Cleaning",
+    description:
+      "Robotics and automation are changing the way solar installations are maintained.",
+    image: "/dirty_solar_panel.jpg",
+  },
+  {
+    title: "Automated Solar Panel Maintenance",
+    description:
+      "Discover how automated cleaning solutions can simplify solar plant maintenance.",
+    image: "/dirty_panels.jpg",
+  },
+];
+
+export default function HomePage() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const heroSlides = [
+  {
+    image: "/Morbi 2.png",
+    title: "Smart Automation for a Cleaner Solar Future",
+    description:
+      "Advanced robotic solutions for efficient and reliable solar panel cleaning.",
+  },
+  {
+    image: "/Amravati.png",
+    title: "Intelligent Solar Cleaning Robots",
+    description:
+      "Technology designed to make solar panel maintenance smarter and more efficient.",
+  },
+  {
+    image: "/higanghat.png",
+    title: "Automation Built for Solar",
+    description:
+      "Innovative robotic solutions for modern solar installations.",
+  },
+  {
+    image: "/Nashik.png",
+    title: "Automation Built for Solar",
+    description:
+      "Innovative robotic solutions for modern solar installations.",
+  },
+];
+
   useEffect(() => {
-    function onKeyDown(e: KeyboardEvent) {
-      if (e.key === "Escape") setExpandedProduct(null)
-    }
-    window.addEventListener("keydown", onKeyDown)
-    return () => window.removeEventListener("keydown", onKeyDown)
-  }, [])
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+    }, 5000);
 
-  // Hero slider images
-  const sliderImages = [
-    {
-      src: "/1st_slide.jpg",
-      alt: "Linear Bot cleaning solar panels",
-      headline: "Revolutionizing Industrial Operations with Smart Automation",
-      description: "From Robotic solar panel cleaning to custom automation systems — Jagrut delivers precision, performance, and innovation."
-    },
-    {
-      src: "/2nd_slide.jpg",
-      alt: "Wrover Bot being installed on solar panels",
-      headline: "Maximize Solar Efficiency with Waterless Cleaning",
-      description: "Optimized, waterless cleaning improves energy output and prolongs panel lifespan"
-    },
-    {
-      src: "/3rd_slide.jpg",
-      alt: "Jagrut's innovative cleaning technology",
-      headline: "Maximize Solar Efficiency with Waterless Cleaning",
-      description: "Optimized, waterless cleaning improves energy output and prolongs panel lifespan"
-    },
-  ]
+    return () => clearInterval(interval);
+  }, [heroSlides.length]);
 
   return (
-    <div className="flex flex-col">
-      {/* Hero Slider Section - Full Screen */}
-      <section className="relative w-full h-screen bg-white">
-        <HeroSlider images={sliderImages} />
-      </section>
+    <main className="bg-white text-gray-900">
+      {/* HERO */}
 
-      {/* Products Section */}
-      <section id = "products" className="py-16 md:py-24 bg-white">
-        <div className="container px-4 md:px-6">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-800 mb-4">
-              Engineered for Efficiency: Explore Our Solutions
-            </h2>
-            <p className="text-lg text-slate-600 max-w-3xl mx-auto">
-              Our innovative cleaning robots are designed to maximize solar panel efficiency while minimizing resource usage.
-            </p>
-          </div>
-
-          <div className="grid lg:grid-cols-2 gap-12">
-            {/* Linear Bot */}
-            <div
-              tabIndex={0}
-              role="button"
-              aria-expanded={expandedProduct === "linear"}
-              aria-controls="linear-bot-details"
-              className="relative cursor-pointer"
-              onClick={() =>
-                setExpandedProduct((prev) => (prev === "linear" ? null : "linear"))
-              }
-              onKeyDown={(e: React.KeyboardEvent<HTMLDivElement>) => {
-                if (e.key === "Enter") setExpandedProduct((prev) => (prev === "linear" ? null : "linear"))
-              }}
-            >
-              <Card className="border-0 shadow-md overflow-hidden h-full transition-transform">
-                <div className="aspect-video bg-slate-50 relative">
-                  <Image
-                    src="/linear_bot.jpg?height=400&width=600&text=Linear+Bot"
-                    alt="Linear Bot cleaning solar panels"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <CardHeader className="bg-gradient-to-r from-blue-400 to-blue-500 text-white">
-                  <CardTitle className="text-2xl">Linear Bot</CardTitle>
-                  <CardDescription className="text-blue-50">Rail-Based Solar Panel Cleaning Robot</CardDescription>
-                </CardHeader>
-              </Card>
-            </div>
-
-            {/* Wrover Bot */}
-            <div
-              tabIndex={0}
-              role="button"
-              aria-expanded={expandedProduct === "wrover"}
-              aria-controls="wrover-bot-details"
-              className="relative cursor-pointer"
-              onClick={() =>
-                setExpandedProduct((prev) => (prev === "wrover" ? null : "wrover"))
-              }
-              onKeyDown={(e: React.KeyboardEvent<HTMLDivElement>) => {
-                if (e.key === "Enter") setExpandedProduct((prev) => (prev === "wrover" ? null : "wrover"))
-              }}
-            >
-              <Card className="border-0 shadow-md overflow-hidden h-full transition-transform">
-                <div className="aspect-video bg-slate-50 relative">
-                  <Image
-                    src="/placeholder.svg?height=400&width=600&text=Wrover+Bot"
-                    alt="Wrover Bot cleaning large solar farm"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <CardHeader className="bg-gradient-to-r from-blue-400 to-blue-500 text-white">
-                  <CardTitle className="text-2xl">Wrover Bot</CardTitle>
-                  <CardDescription className="text-blue-50">
-                    Modular belt-driven cleaning bot for complex solar installations
-                  </CardDescription>
-                </CardHeader>
-              </Card>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Expanded Modal */}
-      {expandedProduct === "linear" && (
-        <div
-          onClick={() => setExpandedProduct(null)}
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="linear-bot-title"
-          aria-describedby="linear-bot-description"
-        >
-          <Card
-          id="linear-bot-details"
-          className="w-[90vw] max-w-5xl h-[90vh] rounded-xl overflow-hidden shadow-2xl bg-white flex flex-col"
-          onClick={(e) => e.stopPropagation()}
-          tabIndex={-1}
+      <section className="relative h-[620px] overflow-hidden md:h-[700px]">
+        {heroSlides.map((slide, index) => (
+          <div
+            key={slide.image}
+            className={`absolute inset-0 transition-opacity duration-1000 ${
+              currentSlide === index ? "opacity-100" : "opacity-0"
+            }`}
           >
-            <div className="relative h-64">
-              <Image
-              src="/linear_bot_2.jpg?"
-              alt="Linear Bot preview"
+            <Image
+              src={slide.image}
+              alt={slide.title}
               fill
-              className="object-cover rounded-t-xl"
-              />
-            </div>
-            <CardHeader className="p-6">
-              <CardTitle id="linear-bot-title" className="text-3xl tracking-wide font-semibold">
-                Linear Bot
-              </CardTitle>
-              <CardDescription id="linear-bot-description" className="text-slate-600 text-lg leading-relaxed font-medium tracking-wide">
-                Rail-Based Solar Panel Cleaning Robot
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="p-6 text-slate-700 text-base leading-relaxed space-y-4 tracking-wide">
-              <p>
-                Linear Bot is an automated, rail-guided robot designed for efficient cleaning of large solar farms and linear panel arrays. It offers precise, low-maintenance cleaning with minimal human effort for ground and shed-mounted installations.
-              </p>
-              <ul className="list-disc list-inside space-y-2 ml-4">
-                <li>Fully automated operation with options for remote control and scheduling</li>
-                <li>Extendable and adjustable to suit different panel sizes and varying row configurations.</li>
-                <li>Smart obstacle detection and edge protection to prevent accidents.</li>
-                <li>Water-efficient cleaning system to minimize water usage</li>
-              </ul>
-            </CardContent>
+              priority={index === 0}
+              className="object-cover"
+            />
 
-            <div className="flex-grow flex items-center justify-center p-6 pt-0">
-              <a
-                href="/contact"
-                className="inline-block bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium"
-              >
-                Inquire for More Details
-              </a>
-            </div>
-          </Card>
+            <div className="absolute inset-0 bg-black/50" />
 
+            <div className="relative z-10 flex h-full items-center">
+              <div className="container mx-auto px-6">
+                <div className="max-w-3xl text-white">
+                  <p className="mb-4 text-sm font-semibold uppercase tracking-[0.25em] text-orange-400 md:text-base">
+                    Jagrut Automation &amp; Robotics
+                  </p>
+
+                  <h1 className="text-4xl font-bold leading-tight md:text-6xl">
+                    {slide.title}
+                  </h1>
+
+                  <p className="mt-6 max-w-2xl text-lg leading-relaxed text-gray-200 md:text-xl">
+                    {slide.description}
+                  </p>
+
+                  <div className="flex flex-wrap gap-6">
+                    <Link
+                      href="#products"
+                      className="flex h-14 items-center justify-center rounded-lg bg-orange-500 px-10 text-lg font-bold text-white transition-all duration-300 hover:bg-orange-600"
+                    >
+                      Explore Products
+                    </Link>
+
+                    <Link
+                      href="/contact#automation-on-demand"
+                      className="flex h-14 items-center justify-center rounded-lg bg-orange-500 px-10 text-lg font-bold text-white transition-all duration-300 hover:bg-orange-600"
+                    >
+                      Book a Demo
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+
+        {/* Slider indicators */}
+
+        <div className="absolute bottom-8 left-0 right-0 z-20 flex justify-center gap-2">
+          {heroSlides.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentSlide(index)}
+              aria-label={`Go to slide ${index + 1}`}
+              className={`h-2.5 rounded-full transition-all ${
+                currentSlide === index
+                  ? "w-8 bg-orange-500"
+                  : "w-2.5 bg-white/70"
+              }`}
+            />
+          ))}
         </div>
-      )}
+      </section>
 
-      {expandedProduct === "wrover" && (
-        <div
-          onClick={() => setExpandedProduct(null)}
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="wrover-bot-title"
-          aria-describedby="wrover-bot-description"
-        >
-          <Card
-            id="wrover-bot-details"
-            className="w-[90vw] max-w-5xl h-[90vh] rounded-xl overflow-hidden shadow-2xl bg-white flex flex-col"
-            onClick={(e) => e.stopPropagation()}
-            tabIndex={-1}
-          >
-            <div className="relative h-64">
-              <Image
-                src="/placeholder.svg?height=400&width=600&text=Wrover+Bot"
-                alt="Wrover Bot preview"
-                fill
-                className="object-cover rounded-t-xl"
-              />
-            </div>
-            <CardHeader className="p-6">
-              <CardTitle id="wrover-bot-title" className="text-3xl tracking-wide font-semibold">
-                Wrover Bot
-              </CardTitle>
-              <CardDescription id="wrover-bot-description" className="text-slate-600 text-lg leading-relaxed font-medium tracking-wide">
-                Modular belt-driven cleaning bot for complex solar installations
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="p-6 text-slate-700 text-base leading-relaxed space-y-4 tracking-wide">
-              <p>
-                An autonomous cleaning robot specially designed for shed-mounted solar panels, where panels are installed in an irregular and non-linear arrangement. Wrover Bot is capable of 360° movement on the panels, allowing it to navigate complex panel layouts without the need for fixed rails.
-              </p>
-              <ul className="list-disc list-inside space-y-2 ml-4">
-                <li>360° movement across panel surfaces for maximum coverage.</li>
-                <li>Suitable for shed-mounted and irregularly installed solar panels.</li>
-                <li>Smart navigation with obstacle detection and edge protection.</li>
-                <li>Water-efficient technology to reduce resource consumption.</li>
-              </ul>
-            </CardContent>
+      {/* PRODUCTS */}
 
-            {/* This container fills leftover space and centers the button */}
-            <div className="flex-grow flex items-center justify-center p-6 pt-0">
-              <a
-                href="/contact"
-                className="inline-block bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium"
-              >
-                Inquire for More Details
-              </a>
-            </div>
+      <section id="products" className="bg-gray-50 py-20 md:py-24">
+        <div className="container mx-auto px-6">
+          <div className="mx-auto mb-14 max-w-3xl text-center">
+            <p className="mb-3 text-sm font-semibold uppercase tracking-[0.25em] text-orange-500">
+              Our Products
+            </p>
 
+            <h2 className="text-3xl font-bold text-gray-900 md:text-5xl">
+              Solar Cleaning Robots
+            </h2>
 
-          </Card>
-        </div>
-      )}
-
-      {/* Blog Section */}
-      <section className="py-16 md:py-24 bg-white">
-        <div className="container px-4 md:px-6">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-800 mb-4">Latest Insights</h2>
-            <p className="text-lg text-slate-600 max-w-3xl mx-auto">
-              Stay updated with the latest trends and knowledge in solar panel maintenance and automation.
+            <p className="mt-5 leading-relaxed text-gray-600">
+              Intelligent robotic solutions designed for efficient, reliable
+              and automated solar panel cleaning.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
-            <BlogCard
-              title="Why Sprinkler Cleaning Can Harm Your Solar Panels"
-              excerpt="Sprinkler cleaning is a common method for solar panel maintenance, but it comes with several hidden drawbacks that can affect performance and longevity."
-              imageSrc="/sprinkler_cleaning_3.jpg"
-              imageAlt="Side-by-side image showing water spots vs clean panel"
-              slug="/blog/sprinkler-cleaning-drawbacks"
-            />
+          <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 md:grid-cols-2">
+            {products.map((product) => (
+              <article
+                key={product.name}
+                className="group overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+              >
+                <div className="relative h-[270px] overflow-hidden bg-gray-100">
+                  <Image
+                    src={product.image}
+                    alt={`${product.name} - ${product.subtitle}`}
+                    fill
+                    className={`object-cover transition-transform duration-500 group-hover:scale-105 ${
+                      product.comingSoon ? "scale-110 blur-[14px]" : ""
+                    }`}
+                  />
 
-            <BlogCard
-              title="Why Regular Cleaning of Solar Panels is Necessary and How Efficiency Drops Without It"
-              excerpt="Solar panels are a significant investment, but their ability to convert sunlight into electricity depends heavily on keeping their surfaces clean."
-              imageSrc="Clean-and-dirty-solar-panels.png"
-              imageAlt="Comparison showing dirty solar panels with reduced efficiency"
-              slug="/blog/regular-cleaning-necessity"
-            />
+                  {product.comingSoon && (
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/10">
+                      <span className="rounded-full bg-orange-500 px-7 py-3 text-sm font-bold tracking-[0.15em] text-white shadow-xl">
+                        COMING SOON
+                      </span>
+                    </div>
+                  )}
+                </div>
+
+                <div className="p-7">
+                  <h3 className="text-2xl font-bold text-gray-900">
+                    {product.name}
+                  </h3>
+
+                  <p className="mt-1 font-medium text-gray-600">
+                    {product.subtitle}
+                  </p>
+
+                  <div className="mt-6 space-y-3">
+                    {product.highlights.map((highlight) => (
+                      <div
+                        key={highlight}
+                        className="flex items-center gap-3 text-sm text-gray-700"
+                      >
+                        <span className="h-2 w-2 flex-shrink-0 rounded-full bg-orange-500" />
+                        <span>{highlight}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="mt-8 flex justify-center">
+                    <Link
+                      href={`/products/${product.slug}`}
+                      className="flex h-11 min-w-[190px] items-center justify-center rounded-md bg-black px-6 text-sm font-semibold text-white transition-all duration-300 hover:bg-orange-500"
+                    >
+                      View Details
+                    </Link>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* SOLAR PANEL CLEANING VIDEOS */}
+
+      <section className="bg-gray-50 py-16 md:py-20">
+        <div className="container mx-auto px-6">
+          <div className="mx-auto mb-10 max-w-3xl text-center">
+            <p className="mb-3 text-sm font-semibold uppercase tracking-[0.25em] text-orange-500">
+              See Our Technology in Action
+            </p>
+
+            <h2 className="text-3xl font-bold text-gray-900 md:text-5xl">
+              Solar Panel Cleaning Videos
+            </h2>
+
+            <p className="mt-5 text-gray-600">
+              Discover how Jagrut Automation&apos;s robotic solutions support
+              dry and wet solar panel cleaning.
+            </p>
           </div>
 
-          <div className="mt-12 text-center">
-            <Button variant="outline" asChild>
-              <Link href="/blog">
-                View All Articles <ArrowRight className="ml-2 h-4 w-4" />
+          <div className="mx-auto grid max-w-5xl grid-cols-1 gap-6 md:grid-cols-2">
+            <a
+              href="https://youtube.com/shorts/P8aTUznbJ1A?si=QyF4w0UQ56kOLZD6"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-between gap-4 rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+            >
+              <div>
+                <h3 className="text-xl font-bold text-gray-900">
+                  Wet Cleaning
+                </h3>
+                <p className="mt-2 text-sm text-gray-600">
+                  Watch the wet cleaning demonstration.
+                </p>
+              </div>
+
+              <span className="shrink-0 rounded-lg bg-orange-500 px-4 py-3 font-semibold text-white">
+                Watch ↗
+              </span>
+            </a>
+
+            <a
+              href="https://youtube.com/shorts/1a4IkjDRr0s?si=G8JmRxBX2HrPjabf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-between gap-4 rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+            >
+              <div>
+                <h3 className="text-xl font-bold text-gray-900">
+                  Dry Cleaning
+                </h3>
+                <p className="mt-2 text-sm text-gray-600">
+                  Watch the dry cleaning demonstration.
+                </p>
+              </div>
+
+              <span className="shrink-0 rounded-lg bg-orange-500 px-4 py-3 font-semibold text-white">
+                Watch ↗
+              </span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* LATEST INSIGHTS */}
+
+      <section className="bg-white py-20 md:py-24">
+        <div className="container mx-auto px-6">
+          <div className="mx-auto mb-12 max-w-3xl text-center">
+            <p className="mb-3 text-sm font-semibold uppercase tracking-[0.25em] text-orange-500">
+              Latest Insights
+            </p>
+
+            <h2 className="text-3xl font-bold md:text-5xl">
+              From Our Blog
+            </h2>
+
+            <p className="mt-5 text-gray-600">
+              Insights and information about solar cleaning, automation and
+              robotics.
+            </p>
+          </div>
+
+          <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 md:grid-cols-3">
+            {blogs.map((blog) => (
+              <article
+                key={blog.title}
+                className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+              >
+                <div className="relative h-52 overflow-hidden">
+                  <Image
+                    src={blog.image}
+                    alt={blog.title}
+                    fill
+                    className="object-cover transition-transform duration-500 hover:scale-105"
+                  />
+                </div>
+
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-gray-900">
+                    {blog.title}
+                  </h3>
+
+                  <p className="mt-3 text-sm leading-relaxed text-gray-600">
+                    {blog.description}
+                  </p>
+
+                  <Link
+                    href="/blog"
+                    className="mt-5 inline-block font-semibold text-orange-500 transition hover:text-orange-600"
+                  >
+                    Read More →
+                  </Link>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* BOOK A DEMO CTA */}
+
+      <section className="relative overflow-hidden bg-black py-20 md:py-24">
+        <div className="absolute inset-0 opacity-10">
+          <Image
+            src="/1st_slide.jpg"
+            alt=""
+            fill
+            className="object-cover"
+          />
+        </div>
+
+        <div className="relative z-10 container mx-auto px-6">
+          <div className="mx-auto max-w-4xl text-center text-white">
+            <p className="mb-3 text-sm font-semibold uppercase tracking-[0.25em] text-orange-400">
+              Experience Automation
+            </p>
+
+            <h2 className="text-3xl font-bold md:text-5xl">
+              Ready to Make Solar Cleaning Smarter?
+            </h2>
+
+            <p className="mx-auto mt-5 max-w-2xl leading-relaxed text-gray-300">
+              Explore Jagrut Automation&apos;s robotic solar cleaning
+              solutions and book a demo.
+            </p>
+
+            <div className="mt-8">
+              <Link
+                href="/contact#automation-on-demand"
+                className="inline-block rounded-md bg-orange-500 px-8 py-3.5 font-semibold text-white transition hover:bg-orange-600"
+              >
+                Book a Demo
               </Link>
-            </Button>
+            </div>
           </div>
         </div>
       </section>
-
-      {/* CTA Section */}
-      <section className="py-16 md:py-24 bg-gradient-to-r from-blue-400 to-blue-500 text-white">
-        <div className="container px-4 md:px-6 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4"> Ready to Accelerate Your Process?</h2>
-          <p className="text-lg md:text-xl mb-8 max-w-3xl mx-auto text-white/90">
-            Let's discuss how our automation solutions can transform your operations and drive your business forward.
-          </p>
-          <Button asChild className="btn bg-white hover:bg-blue-100 text-primary btn-lg font-semibold px-6 py-3 rounded-full transition">
-            <a href="/contact">Get in Touch</a>
-          </Button>
-        </div>
-      </section>
-    </div>
-  )
+    </main>
+  );
 }
